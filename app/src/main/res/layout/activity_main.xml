@@ -50,7 +50,7 @@
         android:layout_marginTop="@dimen/commonMargin"
         app:helperText="@string/helper_required">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etBonrDate"
+            android:id="@+id/et_born_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"

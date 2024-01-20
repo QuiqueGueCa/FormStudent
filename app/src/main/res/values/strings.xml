@@ -9,4 +9,6 @@
     <string name="accept">Aceptar</string>
     <string name="reset">Refrescar</string>
     <string name="helper_optional">Opcional</string>
+    <string name="snackbar_save_succesfull">Se ha guardado la información!</string>
+    <string name="snackbar_save_error">Debes rellenar todos los campos obligatorios</string>
 </resources>
