@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">FormStudent</string>
+    <string name="helper_required">Obligatorio</string>
+    <string name="name">Nombre</string>
+    <string name="lastName">Apellido</string>
+    <string name="bornDate">Fecha de nacimiento</string>
+    <string name="school">Escuela</string>
+    <string name="observations">Observaciones</string>
+    <string name="accept">Aceptar</string>
+    <string name="reset">Refrescar</string>
+    <string name="helper_optional">Opcional</string>
 </resources>

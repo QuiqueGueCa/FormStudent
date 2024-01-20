@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tilSize">250dp</dimen>
+    <dimen name="largeMarginTop">80dp</dimen>
+    <dimen name="commonMargin">16dp</dimen>
+</resources>

@@ -6,13 +6,110 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilName"
+        android:layout_width="@dimen/tilSize"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/largeMarginTop"
+        app:helperText="@string/helper_required">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:hint="@string/name"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilLastName"
+        android:layout_width="@dimen/tilSize"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tilName"
+        app:layout_constraintStart_toStartOf="@id/tilName"
+        app:layout_constraintEnd_toEndOf="@id/tilName"
+        android:layout_marginTop="@dimen/commonMargin"
+        app:helperText="@string/helper_required">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:hint="@string/lastName"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilBornDate"
+        android:layout_width="@dimen/tilSize"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tilLastName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/commonMargin"
+        app:helperText="@string/helper_required">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etBonrDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:hint="@string/bornDate"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSchool"
+        android:layout_width="@dimen/tilSize"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tilBornDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/commonMargin"
+        app:helperText="@string/helper_required"
+        android:visibility="invisible">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSchool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:hint="@string/school"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilObservations"
+        android:layout_width="@dimen/tilSize"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tilSchool"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/commonMargin"
+        app:helperText="@string/helper_optional">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etObservations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/observations"
+            android:minLines="4"
+            android:maxLines="4"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/accept"
+        app:layout_constraintTop_toBottomOf="@id/tilObservations"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/btnReset"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset"
+        app:layout_constraintTop_toBottomOf="@id/tilObservations"
+        app:layout_constraintStart_toEndOf="@id/btnAccept"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
