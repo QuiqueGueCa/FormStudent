@@ -8,10 +8,10 @@ import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import java.util.Calendar
 
-class DatePickerFragment (val listener: (day: Int, month: Int, year: Int)-> Unit) :
-DialogFragment(), DatePickerDialog.OnDateSetListener{
+class DatePickerFragment(val listener: (day: Int, month: Int, year: Int) -> Unit) :
+    DialogFragment(), DatePickerDialog.OnDateSetListener {
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        listener(dayOfMonth,month,year)
+        listener(dayOfMonth, month, year)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

@@ -1,7 +1,9 @@
 package com.example.formstudent
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.formstudent.databinding.ActivityMainBinding
 import com.example.formstudent.viewModel.MainViewModel
@@ -19,39 +21,44 @@ class MainActivity : AppCompatActivity() {
 
         mMainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-
         binding.root.setOnClickListener {
-            mMainViewModel.hideKeyBoard(this)
+            hideKeyBoard()
             clearFocus()
         }
-
         binding.etBornDate.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 showDatePickerDialog()
             }
         }
-
         binding.btnReset.setOnClickListener { resetAllFileds() }
-
         binding.btnAccept.setOnClickListener { saveStudent() }
 
     }
 
     private fun saveStudent() {
-
         with(binding) {
-            if (etName.text!!.isEmpty() ||
-                etLastName.text!!.isEmpty() ||
-                etBornDate.text!!.isEmpty()
+            if (etName.text!!.trim().isEmpty() ||
+                etLastName.text!!.trim().isEmpty() ||
+                etBornDate.text!!.trim().isEmpty()
             ) {
-                Snackbar.make(this.root, R.string.registerFailed, Snackbar.LENGTH_SHORT).show()
-
-            } else if (!mMainViewModel.getIsOverAge().value!! && etSchool.text!!.isEmpty()) {
-
-                Snackbar.make(this.root, R.string.registerFailed, Snackbar.LENGTH_SHORT).show()
-
+                Snackbar.make(this.root, R.string.mustToCompleteFields, Snackbar.LENGTH_SHORT)
+                    .show()
+            } else if (!mMainViewModel.getIsOverAge().value!! && etSchool.text!!.trim().isEmpty()) {
+                Snackbar.make(this.root, R.string.mustToCompleteFields, Snackbar.LENGTH_SHORT)
+                    .show()
             } else {
-                Snackbar.make(this.root, R.string.userSaved, Snackbar.LENGTH_SHORT).show()
+                if (mMainViewModel.saveUser(
+                        etName.text.toString(),
+                        etLastName.text.toString(),
+                        etBornDate.text.toString(),
+                        etSchool.text.toString(),
+                        etObservations.text.toString()
+                    )
+                ) {
+                    Snackbar.make(this.root, R.string.userSaved, Snackbar.LENGTH_SHORT).show()
+                } else {
+                    Snackbar.make(this.root, R.string.registerFailed, Snackbar.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -71,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         datePicker.show(supportFragmentManager, "datePicker")
     }
 
-    fun onDateSelected(day: Int, month: Int, year: Int) {
+    private fun onDateSelected(day: Int, month: Int, year: Int) {
         binding.etBornDate.setText(
             getString(
                 R.string.dateToShow,
@@ -81,11 +88,10 @@ class MainActivity : AppCompatActivity() {
             )
         )
         mMainViewModel.setIsOverAge(year)
-
         if (mMainViewModel.getIsOverAge().value == true) {
-            binding.tilSchool.visibility = android.view.View.INVISIBLE
+            binding.tilSchool.visibility = View.INVISIBLE
         } else {
-            binding.tilSchool.visibility = android.view.View.VISIBLE
+            binding.tilSchool.visibility = View.VISIBLE
         }
     }
 
@@ -96,6 +102,14 @@ class MainActivity : AppCompatActivity() {
             etBornDate.clearFocus()
             etSchool.clearFocus()
             etObservations.clearFocus()
+        }
+    }
+
+    private fun hideKeyBoard() {
+        val imm: InputMethodManager =
+            this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        if (imm.isAcceptingText) {
+            imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         }
     }
 }
