@@ -11,4 +11,5 @@
     <string name="helper_optional">Opcional</string>
     <string name="snackbar_save_succesfull">Se ha guardado la información!</string>
     <string name="snackbar_save_error">Debes rellenar todos los campos obligatorios</string>
+    <string name="dateToShow">%1$s/%2$s/%3$s</string>
 </resources>
