@@ -1,13 +1,16 @@
 package com.example.formstudent.viewModel
 
-import android.content.Context
-import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.formstudent.MainActivity
+import java.util.Calendar
 
 class MainViewModel : ViewModel() {
+
+    private val mIsOverAge = MutableLiveData<Boolean>()
 
 
     fun hideKeyBoard(mainActivity: MainActivity){
@@ -20,5 +23,10 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun getIsOverAge(): LiveData<Boolean>{return mIsOverAge}
+
+    fun setIsOverAge(year: Int){
+        mIsOverAge.value = Calendar.getInstance().get(Calendar.YEAR) - year >= 18
+    }
 
 }

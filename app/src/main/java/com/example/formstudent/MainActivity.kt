@@ -2,18 +2,15 @@ package com.example.formstudent
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.formstudent.databinding.ActivityMainBinding
 import com.example.formstudent.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
-import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mMainViewModel: MainViewModel
-    private var mIsOverAge: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +31,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         binding.btnReset.setOnClickListener { resetAllFileds() }
 
         binding.btnAccept.setOnClickListener { saveStudent() }
@@ -43,35 +39,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun saveStudent() {
 
-        if (!mIsOverAge) {
-            with(binding) {
-                if (etName.text!!.isEmpty() ||
-                    etLastName.text!!.isEmpty() ||
-                    etBornDate.text!!.isEmpty() ||
-                    etSchool.text!!.isEmpty()
-                ) {
+        with(binding) {
+            if (etName.text!!.isEmpty() ||
+                etLastName.text!!.isEmpty() ||
+                etBornDate.text!!.isEmpty()
+            ) {
+                Snackbar.make(this.root, R.string.registerFailed, Snackbar.LENGTH_SHORT).show()
 
-                    Snackbar.make(this.root, "No se puede", Snackbar.LENGTH_SHORT).show()
+            } else if (!mMainViewModel.getIsOverAge().value!! && etSchool.text!!.isEmpty()) {
 
-                } else {
+                Snackbar.make(this.root, R.string.registerFailed, Snackbar.LENGTH_SHORT).show()
 
-                    Snackbar.make(this.root, "Guardado!", Snackbar.LENGTH_SHORT).show()
-                }
-            }
-
-        }else{
-            with(binding) {
-                if (etName.text!!.isEmpty() ||
-                    etLastName.text!!.isEmpty() ||
-                    etBornDate.text!!.isEmpty()
-                ) {
-
-                    Snackbar.make(this.root, "No se puede", Snackbar.LENGTH_SHORT).show()
-
-                } else {
-
-                    Snackbar.make(this.root, "Guardado!", Snackbar.LENGTH_SHORT).show()
-                }
+            } else {
+                Snackbar.make(this.root, R.string.userSaved, Snackbar.LENGTH_SHORT).show()
             }
         }
     }
@@ -92,15 +72,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onDateSelected(day: Int, month: Int, year: Int) {
-        binding.etBornDate.setText(getString(R.string.dateToShow, day.toString(), month.toString(), year.toString()))
+        binding.etBornDate.setText(
+            getString(
+                R.string.dateToShow,
+                day.toString(),
+                month.toString(),
+                year.toString()
+            )
+        )
+        mMainViewModel.setIsOverAge(year)
 
-        if (Calendar.getInstance().get(Calendar.YEAR) - year < 18) {
-            binding.tilSchool.isVisible = true
-            mIsOverAge = false
-
-        } else {
+        if (mMainViewModel.getIsOverAge().value == true) {
             binding.tilSchool.visibility = android.view.View.INVISIBLE
-            mIsOverAge = true
+        } else {
+            binding.tilSchool.visibility = android.view.View.VISIBLE
         }
     }
 
